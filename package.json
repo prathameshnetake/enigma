@@ -18,5 +18,8 @@
   "homepage": "https://github.com/prathameshnetake/enigma#readme",
   "dependencies": {
     "express": "^4.15.3"
+  },
+  "scripts": {
+    "start": "node your-script.js"
   }
 }
