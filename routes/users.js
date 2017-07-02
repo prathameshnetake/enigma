@@ -12,7 +12,7 @@ router.post('/login', (req, res) => {
 
 // Get registe page
 router.get('/register', (req, res) => {
-	res.render("login")
+	res.render("register")
 })
 
 module.exports = router;
