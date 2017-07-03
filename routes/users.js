@@ -1,5 +1,6 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const User = require('../models/user');
 // Get Login page
 router.get('/login', (req, res) => {
 	res.render("login")
@@ -50,6 +51,12 @@ router.post('/register', (req, res) => {
 	else{
 		console.log("All clear ready to go");
 		console.log(data);
+		const newUser = new User(data)
+		User.createUser(newUser, (err, res) => {
+			if(err) throw err
+			console.log("New user added to db")
+			console.log(res)
+		})
 		res.send("values accepted" + JSON.stringify(data))
 	}
 

@@ -8,13 +8,14 @@ const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 const bcrypt = require('bcryptjs')
 const expressValidator = require('express-validator')
+var mongoose = require('mongoose');
 
 
-// Database connection
-MongoClient.connect('mongodb://alex1992:netake1234@ds145952.mlab.com:45952/enigma', (err, db) => {
-    if (err) throw err
-})
 
+mongoose.connect('mongodb://alex1992:netake1234@ds145952.mlab.com:45952/enigma', {
+	useMongoClient: true
+});
+const db = mongoose.connection
 
 
 // Assign public folder
