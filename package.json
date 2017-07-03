@@ -17,9 +17,11 @@
   },
   "homepage": "https://github.com/prathameshnetake/enigma#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "express-handlebars": "^3.0.0",
+    "express-validator": "^3.2.0",
     "mongodb": "^2.2.29",
     "path": "^0.12.7",
     "socket.io": "^2.0.3"
