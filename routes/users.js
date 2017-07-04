@@ -7,6 +7,19 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/login', (req, res) => {
+	const username = req.sanitize('username').escape().trim()
+	const password = req.sanitize('password').escape().trim()
+	req.checkBody("username")
+		.notEmpty().withMessage("Username Should not be empty")
+	req.checkBody("password")
+		.notEmpty().withMessage("Name Should not be empty")
+	if(errors){
+		console.log(errors)
+		res.redirect("/users/login")
+	}
+	else{
+		
+	}
 	console.log(req.body)
 	res.send("Login data recieved");
 })

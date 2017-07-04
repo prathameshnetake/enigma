@@ -8,7 +8,7 @@ const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 const bcrypt = require('bcryptjs')
 const expressValidator = require('express-validator')
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 
 
