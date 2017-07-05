@@ -8,13 +8,11 @@ const User = require('../models/user');
 // 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-   console.log(username)
-   console.log(password)
    User.getUserByUsername(username, (err, user) => {
    	if(err) throw err;
    	if(!user){
    		console.log("Unknown User")
-   		return done(null, false, {message: 'Unknown User'});
+   		return done(null, false);
    	}
    	User.comparePassword(password, user.password, function(err, isMatch){
    		if(err) throw err;
@@ -48,6 +46,8 @@ router.get('/login', (req, res) => {
 router.post('/login',
 	passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login',failureFlash: true}),
 	(req, res) => {
+		console.log(req);
+		console.log(res);
     	res.redirect('/');
   	}
 )
