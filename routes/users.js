@@ -1,28 +1,34 @@
-const express = require('express');
+ const express = require('express');
 const router = express.Router();
-const User = require('../models/user');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const User = require('../models/user');
 
 // Get Login page
 // 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-   User.getUserByUsername(username, function(err, user){
+   console.log(username)
+   console.log(password)
+   User.getUserByUsername(username, (err, user) => {
    	if(err) throw err;
    	if(!user){
+   		console.log("Unknown User")
    		return done(null, false, {message: 'Unknown User'});
    	}
    	User.comparePassword(password, user.password, function(err, isMatch){
    		if(err) throw err;
    		if(isMatch){
+   			console.log("User matched")
    			return done(null, user);
    		} else {
-   			return done(null, false, {message: 'Invalid password'});
+   			console.log("Invalid password")
+   			return done(null, false);
    		}
-   	});
-   });
- }));
+   	})
+   })
+ }))
+
 passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
@@ -30,35 +36,27 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(id, done) {
   User.getUserById(id, function(err, user) {
     done(err, user);
-  });
-});
+  })
+})
+
 router.get('/login', (req, res) => {
 	res.render("login")
 });
 
 
 
-router.post('/login', (req, res) => {
-	const username = req.sanitize('username').escape().trim()
-	const password = req.sanitize('password').escape().trim()
-	req.checkBody("username")
-		.notEmpty().withMessage("Username Should not be empty")
-	req.checkBody("password")
-		.notEmpty().withMessage("Name Should not be empty")
-	const errors = req.validationErrors();
-	if(errors){
-		console.log(errors)
-		res.redirect("/users/login")
+router.post('/login',
+	passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login',failureFlash: true}),
+	(req, res) => {
+    	res.redirect('/');
+  	}
+)
+router.get('/logout',
+	(req, res) => {
+		req.logout();
+		res.redirect('/users/login');
 	}
-	else{
-		passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login'}),
-  		(req, res) => {
-    		res.redirect('/');
-  		}
-	}
-	res.redirect("/users/login")
-	console.log(req.body)
-})
+)
 
 // Get registe page
 router.get('/register', (req, res) => {
