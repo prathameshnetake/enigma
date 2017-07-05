@@ -1,15 +1,62 @@
-const express = require('express');
+ const express = require('express');
 const router = express.Router();
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
+
 // Get Login page
-router.get('/login', (req, res) => {
-	res.render("login")
+// 
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+   User.getUserByUsername(username, (err, user) => {
+   	if(err) throw err;
+   	if(!user){
+   		console.log("Unknown User")
+   		return done(null, false);
+   	}
+   	User.comparePassword(password, user.password, function(err, isMatch){
+   		if(err) throw err;
+   		if(isMatch){
+   			console.log("User matched")
+   			return done(null, user);
+   		} else {
+   			console.log("Invalid password")
+   			return done(null, false);
+   		}
+   	})
+   })
+ }))
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.getUserById(id, function(err, user) {
+    done(err, user);
+  })
 })
 
-router.post('/login', (req, res) => {
-	console.log(req.body)
-	res.send("Login data recieved");
-})
+router.get('/login', (req, res) => {
+	res.render("login")
+});
+
+
+
+router.post('/login',
+	passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login',failureFlash: true}),
+	(req, res) => {
+		console.log(req);
+		console.log(res);
+    	res.redirect('/');
+  	}
+)
+router.get('/logout',
+	(req, res) => {
+		req.logout();
+		res.redirect('/users/login');
+	}
+)
 
 // Get registe page
 router.get('/register', (req, res) => {

@@ -1,14 +1,17 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-const exphbs = require('express-handlebars');
-const routes = require('./routes/index');
-const users = require('./routes/users');
+const exphbs = require('express-handlebars')
+const routes = require('./routes/index')
+const users = require('./routes/users')
 const bodyParser = require('body-parser')
+const session = require('express-session')
+var passport = require('passport')
+var LocalStrategy = require('passport-local').Strategy
 const MongoClient = require('mongodb').MongoClient
 const bcrypt = require('bcryptjs')
 const expressValidator = require('express-validator')
-var mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 
 
@@ -28,6 +31,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Assign validator
 app.use(expressValidator([]));
+
+// Express Session
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
+}));
+
+// Passport init
+app.use(passport.initialize());
+app.use(passport.session());
 
 // setup view engins 
 app.set('views', path.join(__dirname, 'views'));
