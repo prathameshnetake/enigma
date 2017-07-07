@@ -12,6 +12,9 @@ const MongoClient = require('mongodb').MongoClient
 const bcrypt = require('bcryptjs')
 const expressValidator = require('express-validator')
 const mongoose = require('mongoose')
+var server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
 
 
 
@@ -45,11 +48,24 @@ app.use(passport.session());
 
 // setup view engins 
 app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.engine('handlebars', exphbs({ 
+	defaultLayout: 'main',
+	partialsDir: "views/partials/"
+}));
 app.set('view engine', 'handlebars');
 
 
 app.use('/', routes);
 app.use('/users', users);
 
-app.listen(process.env.PORT || 8080, () => console.log("Server is running..."))
+const logged = io.of('/chat');
+
+logged.on('connection', (socket) => {
+  console.log(socket.id)
+  socket.on('chat', (data) => {
+  	console.log(data)
+  	io.emit('chat', data);
+  })
+});
+
+server.listen(process.env.PORT || 8080, () => console.log("Server is running..."))

@@ -44,7 +44,7 @@ router.get('/login', (req, res) => {
 
 
 router.post('/login',
-	passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login',failureFlash: true}),
+	passport.authenticate('local', {successRedirect:'/chat', failureRedirect:'/users/login',failureFlash: true}),
 	(req, res) => {
 		console.log(req);
 		console.log(res);
@@ -108,4 +108,14 @@ router.post('/register', (req, res) => {
 	}
 
 })
+
+router.get('/online', (req, res) => {
+	if(req.isAuthenticated()){
+		res.send(req.user)
+	}else{
+		res.redirect('/users/login')
+	}
+})
+
+
 module.exports = router;
