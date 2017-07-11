@@ -1,6 +1,30 @@
-div {
-  height: 600px; }
 
-p {
-  background: red;
-  height: 300px; }
+body {
+  font-family: Roboto; }
+
+.container-fluid {
+  padding: 0; }
+
+.sidePanel {
+  position: relative;
+  display: inline-block;
+  width: 350px;
+  height: 100vh;
+  background: -webkit-linear-gradient(157deg, #242a31 31%, #2d343c 69%);
+  background: -moz-linear-gradient(157deg, #242a31 31%, #2d343c 69%);
+  background: -o-linear-gradient(157deg, #242a31 31%, #2d343c 69%);
+  background: -ms-linear-gradient(157deg, #242a31 31%, #2d343c 69%);
+  background: linear-gradient(-67deg, #242a31 31%, #2d343c 69%);
+  color: #ffffff;
+  font-size: 1em; }
+  .sidePanel .heading {
+    font-family: Roboto;
+    color: #ffffff;
+    font-size: 1.375em;
+    font-weight: 500;
+    text-align: left;
+    padding: 1em 2em; }
+  .sidePanel hr {
+    border-top: 0px;
+    background-color: rgba(255, 255, 255, 0.1);
+    height: 1px; }
