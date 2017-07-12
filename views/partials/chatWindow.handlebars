@@ -1,7 +1,41 @@
-<div id="chatWindow" class="row">
-	<div class="topbar">
-		<div class="username">
-			{{user.name}}
+<div id="chatWindow" class="chatWindow">
+	<div class="conversation">
+		<div class="chat-header">
+			John bellion <span class="status">is typinng...</span>
+		</div>		
+		<div class="chat">
+			<div class="me">
+				<div class="msgWrapper">
+					<div class="info col-md-2">
+						<img src="/img/testAvatar.png" alt="">
+						<p class="time">12.38</p>
+					</div>
+					<div class="msg col-md-10">
+						<p class="content">
+							this is what, I use to read Word Up magezine salt'n paper and Heavy in the limousine
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="notMe">
+				<div class="msgWrapper">
+					<div class="info col-md-2">
+						<img src="/img/testAvatar.png" alt="">
+						<p class="time">12.38</p>
+					</div>					
+					<div class="msg col-md-10">
+						<p class="content">
+							How is it going dude?
+						</p>
+					</div>					
+				</div>
+			</div>
+		</div>
+		<div class="chat-footer">
+			<span class="attachment"><i class="fa fa-paperclip" aria-hidden="true"></i></span>
+			<input type="text" placeholder="Type your message...">
+			<span class="smiley"><i class="fa fa-smile-o" aria-hidden="true"></i></span>
+			<span class="send"><i class="fa fa-paper-plane" aria-hidden="true"></i></span>
 		</div>
 	</div>
 </div>

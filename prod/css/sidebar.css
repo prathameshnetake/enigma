@@ -2,7 +2,7 @@
   position: relative;
   display: inline-block;
   width: 350px;
-  height: 100vh;
+  height: calc(100vh - 100px);
   background: -webkit-linear-gradient(157deg, #242a31 31%, #2d343c 69%);
   background: -moz-linear-gradient(157deg, #242a31 31%, #2d343c 69%);
   background: -o-linear-gradient(157deg, #242a31 31%, #2d343c 69%);
