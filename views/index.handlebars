@@ -2,3 +2,8 @@
 	{{> sidePanel}}
 	{{> chatWindow}}
 </div>
+<script>
+	var socket = io('',{
+		query: 'username={{ user.username }}'
+	});
+</script>

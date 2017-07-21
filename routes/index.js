@@ -2,14 +2,14 @@ var express = require('express');
 var router = express.Router();
 
 // Get Homepage
-router.get('/chat', function(req, res){
-	 // if(req.isAuthenticated()){
-	 // 	res.render('index', {user: req.user});
-	 // }
-	 // else{
-	 // 	res.redirect('/users/login')
-	 // }
-	 res.render('index', {user: req.user});
+router.get('/', function(req, res){
+	 if(req.isAuthenticated()){
+	 	res.render('index', {user: req.user});
+	 }
+	 else{
+	 	res.redirect('/users/login')
+	 }
+	 // res.render('index', {user: req.user});
 	
 });
 module.exports = router;

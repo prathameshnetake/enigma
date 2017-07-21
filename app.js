@@ -14,6 +14,7 @@ const expressValidator = require('express-validator')
 const mongoose = require('mongoose')
 var server = require('http').createServer(app);
 const io = require('socket.io')(server);
+const OnlineUser = require('./models/onlineUsers')
 
 
 
@@ -58,13 +59,25 @@ app.set('view engine', 'handlebars');
 app.use('/', routes);
 app.use('/users', users);
 
-const logged = io.of('/chat');
+const logged = io.of('/');
 
-logged.on('connection', (socket) => {
-  console.log(socket.id)
+logged.on('connection', (socket, data) => {
+  console.log(socket.handshake.query.username)
+  // console.log(socket.request.session)
+  Online = new OnlineUser({username: socket.handshake.query.username, sessionId: socket.id})
+  OnlineUser.createOnlineUser(Online)
   socket.on('chat', (data) => {
   	console.log(data)
   	io.emit('chat', data);
+  })
+  socket.on('disconnect', (data) => {
+    console.log('socket is disconnected ' + data)
+    OnlineUser.removeOnlineUser(socket.handshake.query.username, (err, data) => {
+      if(err){
+        throw err
+      }
+      console.log(data)
+    })
   })
 });
 
