@@ -1,0 +1,83 @@
+.sidePanel {
+  position: relative;
+  display: inline-block;
+  width: 350px;
+  height: calc(100vh - 100px);
+  background: -webkit-linear-gradient(157deg, #242a31 31%, #2d343c 69%);
+  background: -moz-linear-gradient(157deg, #242a31 31%, #2d343c 69%);
+  background: -o-linear-gradient(157deg, #242a31 31%, #2d343c 69%);
+  background: -ms-linear-gradient(157deg, #242a31 31%, #2d343c 69%);
+  background: linear-gradient(-67deg, #242a31 31%, #2d343c 69%);
+  color: #ffffff;
+  font-size: 1em; }
+  .sidePanel .heading {
+    font-family: Roboto;
+    color: #ffffff;
+    font-size: 1.375em;
+    font-weight: 500;
+    text-align: left;
+    padding: 1em 2em; }
+  .sidePanel hr {
+    border-top: 0px;
+    background-color: rgba(255, 255, 255, 0.1);
+    height: 1px; }
+  .sidePanel .user {
+    position: relative;
+    padding: 1.5em 0.5em; }
+    .sidePanel .user.active {
+      border-left: 3px solid #2b80ff; }
+    .sidePanel .user .online {
+      border-radius: 50%;
+      background-color: #2dc100;
+      width: 6px;
+      height: 6px;
+      position: absolute;
+      top: 5px;
+      left: 5px; }
+    .sidePanel .user ul {
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      display: inline-block; }
+      .sidePanel .user ul li {
+        width: 100%;
+        position: relative;
+        padding: 1em 1em;
+        list-style: none;
+        list-style-type: none; }
+        .sidePanel .user ul li:after {
+          content: "";
+          width: 24%;
+          background-color: rgba(255, 255, 255, 0.1);
+          height: 1px;
+          position: absolute;
+          bottom: 0;
+          left: 2%; }
+        .sidePanel .user ul li img {
+          vertical-align: top;
+          width: 50px;
+          height: 50px;
+          margin-right: 1em; }
+        .sidePanel .user ul li .msgWrapper {
+          display: inline-block; }
+          .sidePanel .user ul li .msgWrapper .name {
+            font-size: 1em;
+            font-weight: 500; }
+          .sidePanel .user ul li .msgWrapper .lastMsg {
+            font-size: 0.875em;
+            color: #a1a5a7; }
+  .sidePanel .about ul {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    display: inline-block; }
+    .sidePanel .about ul li {
+      color: #a1a5a7;
+      width: 30%;
+      float: left;
+      font-size: 0.875em;
+      text-align: center;
+      text-transform: uppercase;
+      position: relative;
+      list-style: none;
+      list-style-type: none; }

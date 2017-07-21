@@ -12,6 +12,10 @@ const MongoClient = require('mongodb').MongoClient
 const bcrypt = require('bcryptjs')
 const expressValidator = require('express-validator')
 const mongoose = require('mongoose')
+var server = require('http').createServer(app);
+const io = require('socket.io')(server);
+const OnlineUser = require('./models/onlineUsers')
+
 
 
 
@@ -45,11 +49,36 @@ app.use(passport.session());
 
 // setup view engins 
 app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.engine('handlebars', exphbs({ 
+	defaultLayout: 'main',
+	partialsDir: "views/partials/"
+}));
 app.set('view engine', 'handlebars');
 
 
 app.use('/', routes);
 app.use('/users', users);
 
-app.listen(process.env.PORT || 8080, () => console.log("Server is running..."))
+const logged = io.of('/');
+
+logged.on('connection', (socket, data) => {
+  console.log(socket.handshake.query.username)
+  // console.log(socket.request.session)
+  Online = new OnlineUser({username: socket.handshake.query.username, sessionId: socket.id})
+  OnlineUser.createOnlineUser(Online)
+  socket.on('chat', (data) => {
+  	console.log(data)
+  	io.emit('chat', data);
+  })
+  socket.on('disconnect', (data) => {
+    console.log('socket is disconnected ' + data)
+    OnlineUser.removeOnlineUser(socket.handshake.query.username, (err, data) => {
+      if(err){
+        throw err
+      }
+      console.log(data)
+    })
+  })
+});
+
+server.listen(process.env.PORT || 8080, () => console.log("Server is running..."))

@@ -1,12 +1,9 @@
-<h3>Welcome, {{user.name}}</h3>
-<div class="chatContainerWrapper row">
-	<div class="chatWindow col-xs-12">
-		
-	</div>
-	<div class="chatInput col-xs-10">
-		<input type="text" class="form-control" name="msg" placeholder="Type your message...">
-	</div>
-	<div class="chatInput col-xs-2">
-		<button type="submit" class="btn btn-default">Send</button>
-	</div>
-</div>		
+<div class="container-fluid">
+	{{> sidePanel}}
+	{{> chatWindow}}
+</div>
+<script>
+	var socket = io('',{
+		query: 'username={{ user.username }}'
+	});
+</script>

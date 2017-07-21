@@ -108,4 +108,14 @@ router.post('/register', (req, res) => {
 	}
 
 })
+
+router.get('/online', (req, res) => {
+	if(req.isAuthenticated()){
+		res.send(req.user)
+	}else{
+		res.redirect('/users/login')
+	}
+})
+
+
 module.exports = router;

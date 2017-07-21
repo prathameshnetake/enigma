@@ -9,6 +9,7 @@ router.get('/', function(req, res){
 	 else{
 	 	res.redirect('/users/login')
 	 }
+	 // res.render('index', {user: req.user});
 	
 });
 module.exports = router;
