@@ -62,12 +62,9 @@ app.use('/users', users);
 const logged = io.of('/');
 
 logged.on('connection', (socket, data) => {
-  console.log(socket.handshake.query.username)
-  // console.log(socket.request.session)
   Online = new OnlineUser({username: socket.handshake.query.username, sessionId: socket.id})
   OnlineUser.createOnlineUser(Online)
   socket.on('chat', (data) => {
-  	console.log(data)
   	io.emit('chat', data);
   })
   socket.on('disconnect', (data) => {
@@ -76,7 +73,6 @@ logged.on('connection', (socket, data) => {
       if(err){
         throw err
       }
-      console.log(data)
     })
   })
 });

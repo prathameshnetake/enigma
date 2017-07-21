@@ -15,13 +15,13 @@ var onlineUserSchema = mongoose.Schema({
 	}
 })
 
-var User = module.exports = mongoose.model('OnlineUser', onlineUserSchema)
+var OnlineUser = module.exports = mongoose.model('OnlineUser', onlineUserSchema)
 
 module.exports.createOnlineUser = function( newOnlineUser, callBack){
 	newOnlineUser.save(callBack)
 }
 module.exports.removeOnlineUser = (username, callBack) => {
-	User.findOne({username: username}, (err, user) => {
+	OnlineUser.findOne({username: username}, (err, user) => {
 		if(err){
 			throw err
 		}

@@ -1,9 +1,9 @@
- const express = require('express');
+const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
-
+const OnlineUsers = require('../models/onlineUsers')
 // Get Login page
 // 
 passport.use(new LocalStrategy(
@@ -111,8 +111,11 @@ router.post('/register', (req, res) => {
 
 router.get('/online', (req, res) => {
 	if(req.isAuthenticated()){
-		res.send(req.user)
-	}else{
+		OnlineUsers.find({}, (err, olUsers) => {
+			if(err) throw err
+			res.send(olUsers)
+		})
+	}else{		
 		res.redirect('/users/login')
 	}
 })
